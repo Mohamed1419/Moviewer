@@ -2,10 +2,11 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Listing
 
-class AuthorSerializer(serializers.ModelSerializer):
+
+class UsersSerializer(serializers.ModelSerializer):
     class Meta:
-        model=get_user_model()
-        fields=('username',)
+        model = get_user_model()
+        fields = ('id', 'username',)
 
 class ListingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,5 +15,12 @@ class ListingSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response=super().to_representation(instance)
-        response['author']=AuthorSerializer(instance.author).data
+        response['author']=UsersSerializer(instance.author).data
         return response
+
+class AuthorSerializer(serializers.ModelSerializer):
+    listings = ListingSerializer(many=True, read_only=True)
+
+    class Meta:
+        model=get_user_model()
+        fields=('id','username', 'email', 'first_name', 'last_name', 'name', 'listings',)
