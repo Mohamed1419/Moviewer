@@ -34,7 +34,7 @@ const NavBar = () => {
         to=""
         className="navBar-logout"
         onClick={handleLogout}
-        style={{ color: "#BCBCBC" }}
+        style={{ color: "#07393C" }}
       >
         Log out
       </NavLink>
@@ -42,7 +42,7 @@ const NavBar = () => {
       <Link
         to={`/profile/${user._id}`}
         className="user-name"
-        style={{ color: "#BCBCBC" }}
+        style={{ color: "#07393C" }}
       >
         {user.name}
       </Link>
@@ -54,7 +54,7 @@ const NavBar = () => {
       <NavLink
         to="/login"
         className="navBar-login"
-        style={{ color: "gold" }}
+        style={{ color: "#07393C" }}
       >
         Log in
       </NavLink>
@@ -62,7 +62,7 @@ const NavBar = () => {
       <NavLink
         to="/signup"
         className="navBar-signup"
-        style={{ color: "gold" }}
+        style={{ color: "#07393C" }}
       >
         Sign up
       </NavLink>
@@ -79,7 +79,7 @@ const NavBar = () => {
           {nav}
         </div>
 
-        <Link to="/" style={{ color: "gold" }}>
+        <Link to="/" style={{ color: "#07393C" }}>
           <h1 className="moviewer">Moviewer</h1>
         </Link>
 
@@ -87,6 +87,7 @@ const NavBar = () => {
             <h2 className="create-blog">Cart</h2>
           </Link>
       </div>
+      
       <div className="search">
         <input type='text' value={value} className="searchbar" placeholder="Search for a movie title" onSubmit={() => onSearch(value)}  onChange={onChange}></input>
         <Link to={`/results/${value}`}><div className="search-icon"><SearchOutlinedIcon onClick={() => onSearch(value) } /></div></Link>

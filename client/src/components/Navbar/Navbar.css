@@ -2,6 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 
+
 .navBar {
     width: 100%;
     display: flex;
@@ -52,8 +53,8 @@
   
   .create-blog {
     /* margin-left: 5px; */
-    color: gold;
-    border: 1px solid gold;
+    color: #07393C;
+    border: 1px solid #07393C;
     border-radius: 3px;
     padding: 4px;
     font-size: 16pt;
@@ -71,7 +72,7 @@
   
   .navBar-signup {
     margin-left: 5px;
-    border: 1px solid gold;
+    border: 1px solid #07393C;
     border-radius: 3px;
     padding: 4px;
     font-size: 16pt;
@@ -95,11 +96,12 @@
     /* margin-top: 2px; */
     transition: 0.3s;
     height: 25px;
+    color: aqua;
 
   }
 
   .search-icon:hover {
-    border: 1px solid gold;
+    border: 1px solid #07393C;
   }
 
   .user-name,
@@ -108,7 +110,7 @@
   .navBar-signup, 
   .create-blog {
     font-size: 16pt;
-    color: gold;
+    color: #07393C;
     font-weight: normal;
   }
   
