@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import './HomePage.css'
 
 function HomePage() {
@@ -36,7 +37,8 @@ function HomePage() {
   } else {
     return (
       <div>
-        {movies.results.map((movie) => (<div>{movie.title}</div>))
+        {
+          movies.results.map((movie) => (<Link to={`/details/${movie.id}`} key={movie.id}><div>{movie.title}</div></Link>))
         }
       </div>
     );
