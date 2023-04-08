@@ -15,6 +15,7 @@ const NavBar = () => {
     setResults([])
     console.log('What you searched for: ' + searchTerm);
     setResults(searchTerm)
+    console.log();
   }
 
 
@@ -88,10 +89,18 @@ const NavBar = () => {
           </Link>
       </div>
       
-      <div className="search">
+      {/* <div className="search">
         <input type='text' value={value} className="searchbar" placeholder="Search for a movie title" onSubmit={() => onSearch(value)}  onChange={onChange}></input>
-        <Link to={`/results/${value}`}><div className="search-icon"><SearchOutlinedIcon onClick={() => onSearch(value) } /></div></Link>
-      </div>
+        <Link to={`/results/${value}`}>  <div className="search-icon"><SearchOutlinedIcon onClick={() => onSearch(value) } /></div>  </Link>
+      </div> */}
+      
+      <form className="search">
+        <label>
+          <input type='text' value={value} placeholder="Search for a movie title" onChange={onChange} className='searchbar'></input>
+        </label>
+        {/* Here is where the search query is pushed into the params of the results page */}
+        <Link to={`/results/${value}`}><input type="submit" value="Submit" /></Link> 
+      </form>
     </>
   );
 };

@@ -5,7 +5,7 @@ import tokenService from '../utils/tokenService';
 
 export default function useUser() {
   const [state, setState] = React.useContext(UserContext);
-  console.log('State: ' + state.user + ' token: ' + localStorage.getItem('token'));
+  // console.log('State: ' + state.user + ' token: ' + localStorage.getItem('token'));
 
   const handleSignupOrLogin = () => {
     const freshUser = userService.getUser();
