@@ -21,7 +21,7 @@ export const getListing = async (listingID) => {
 
 export const getUserListing = async (userID) => {
   try {
-    let res = await fetch(`http://localhost:8000/api/v1/users/${userID}`);
+    let res = await fetch(`http://localhost:8000/users/details/${userID}`);
     return res.json();
   } catch (error) {
     console.log(error);

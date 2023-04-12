@@ -71,8 +71,8 @@ function SignupForm({ updateMessage }) {
         </div>
         <div className="form-group buttons">
           {/* <div className="col-sm-12 text-center"> */}
-            <button className="button is-primary" style={{textDecoration: "none"}} disabled={isFormInvalid()}>Sign Up</button>&nbsp;&nbsp;
-           <button className="button is-primary"> <Link to='/' style={{textDecoration: "none"}}>Cancel</Link></button>
+            <button className="button is-primary" style={{textDecoration: "none"}} onSubmit={handleSubmit} disabled={isFormInvalid()}>Sign Up</button>&nbsp;&nbsp;
+            <button className="button is-primary"> <Link to='/' style={{textDecoration: "none"}}>Cancel</Link></button>
           {/* </div> */}
         </div>
       </form>

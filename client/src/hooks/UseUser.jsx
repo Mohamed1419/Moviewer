@@ -5,14 +5,16 @@ import tokenService from '../utils/tokenService';
 
 export default function useUser() {
   const [state, setState] = React.useContext(UserContext);
-  // console.log('State: ' + state.user + ' token: ' + localStorage.getItem('token'));
+  console.log('State: ' + state.user + ' token: ' + localStorage.getItem('token'));
 
   const handleSignupOrLogin = () => {
     const freshUser = userService.getUser();
     setState((state) => ({ ...state, user: freshUser }));
+    console.log('the state in user context in the handleSignupOrLogin function: ' + state);
   };
 
   const handleLogout = () => {
+    console.log('the state in user context logout function: ' + state);
     userService.logout();
     setState({ ...state, user: null });
   };
