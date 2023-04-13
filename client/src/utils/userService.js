@@ -21,6 +21,11 @@ function getUser() {
   console.log(
     "getUserFromToken in getUser function: " + tokenService.getUserFromToken()
   );
+  // return fetch(
+  //   BASE_URL + `users/details/${tokenService.getUserFromToken()}`
+  // ).then((res) => {
+  //   if (res.ok) return res.json();
+  // });
   return tokenService.getUserFromToken();
 }
 

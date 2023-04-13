@@ -1,9 +1,10 @@
 import tokenService from "./tokenService.js";
 // const BASE_URL = "https://blogging-platform-365219.ew.r.appspot.com";
+const BASE_URL = "http://localhost:8000/";
 
 export const getListings = async () => {
   try {
-    let res = await fetch("http://localhost:8000/api/v1/");
+    let res = await fetch(BASE_URL + "api/v1/");
     return res.json();
   } catch (error) {
     console.log(error);
@@ -12,16 +13,25 @@ export const getListings = async () => {
 
 export const getListing = async (listingID) => {
   try {
-    let res = await fetch(`http://localhost:8000/api/v1/${listingID}`);
+    let res = await fetch(BASE_URL + `api/v1/${listingID}`);
     return res.json();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getUserListing = async (userID) => {
+export const getAllUsers = async () => {
   try {
-    let res = await fetch(`http://localhost:8000/users/details/${userID}`);
+    let res = await fetch(BASE_URL + `users`);
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserDetails = async (userID) => {
+  try {
+    let res = await fetch(BASE_URL + `users/details/${userID}`);
     return res.json();
   } catch (error) {
     console.log(error);
@@ -32,7 +42,7 @@ export const updateAListing = async (listing) => {
   try {
     const token = tokenService.getToken();
 
-    let res = await fetch(`http://localhost:8000/api/v1/${listing._id}`, {
+    let res = await fetch(BASE_URL + `api/v1/${listing._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -49,7 +59,7 @@ export const updateAListing = async (listing) => {
 export const createAListing = async (listing) => {
   try {
     const token = tokenService.getToken();
-    let res = await fetch(`http://localhost:8000/api/v1/`, {
+    let res = await fetch(BASE_URL + `api/v1/`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
@@ -66,7 +76,7 @@ export const removeAListing = async (listing) => {
   try {
     console.log("listing was deleted");
     const token = tokenService();
-    let res = await fetch(`http://localhost:8000/api/v1/${listing._id}`, {
+    let res = await fetch(BASE_URL + `api/v1/${listing._id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

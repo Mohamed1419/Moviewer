@@ -4,10 +4,19 @@ import { useState } from "react";
 import useUser from "../../hooks/UseUser";
 import "./Navbar.css";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { getUserDetails } from "../../utils/listingService";
 
 
 const NavBar = () => {
   const { handleLogout, user } = useUser();
+  console.log(user);
+
+  
+  let [UserDetails, setUserDetails] = useState('')
+  // setUserDetails(getUserDetails(user))
+  console.log(UserDetails);
+
+
   const [value, setValue] = useState('')
   const [results, setResults] = useState([]);
 
@@ -41,11 +50,11 @@ const NavBar = () => {
       </NavLink>
 
       <Link
-        to={`/profile/${user._id}`}
+        to={`/user/${user}`}
         className="user-name"
         style={{ color: "#07393C" }}
       >
-        {user.name}
+        {user}
       </Link>
 
     </div>
