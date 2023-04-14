@@ -31,11 +31,7 @@ const NavBar = () => {
   function onChange(e) {
     setValue(e.target.value)
   } 
-  
-//  function getResults(searchTerm) {
 
-//       console.log(results);
-//   }
 
   let nav = user ? (
     // IF SIGNED IN
@@ -72,7 +68,7 @@ const NavBar = () => {
       <NavLink
         to="/signup"
         className="navBar-signup"
-        style={{ color: "#07393C" }}
+        // style={{ color: "#07393C" }}
       >
         Sign up
       </NavLink>
@@ -82,7 +78,7 @@ const NavBar = () => {
 
 
   return (
-    <>
+    <div className="nav">
       <div className="navBar">
 
         <div className="navBar-left">
@@ -94,7 +90,10 @@ const NavBar = () => {
         </Link>
 
           <Link to='/cart'>
-            <h2 className="create-blog">Cart</h2>
+            <NavLink
+        to="/"
+        className="cart"
+      >Cart</NavLink>
           </Link>
       </div>
       
@@ -103,14 +102,14 @@ const NavBar = () => {
         <Link to={`/results/${value}`}>  <div className="search-icon"><SearchOutlinedIcon onClick={() => onSearch(value) } /></div>  </Link>
       </div> */}
       
-      <form className="search">
+      <form className="searchbar-label">
         <label>
           <input type='text' value={value} placeholder="Search for a movie title" onChange={onChange} className='searchbar'></input>
         </label>
         {/* Here is where the search query is pushed into the params of the results page */}
-        <Link to={`/results/${value}`}><input type="submit" value="Submit" /></Link> 
+        <Link to={`/results/${value}`}><input type="submit" value="Find Movie" className="search-btn" /></Link> 
       </form>
-    </>
+    </div>
   );
 };
 

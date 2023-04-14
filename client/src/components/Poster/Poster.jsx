@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { getListing } from '../../utils/listingService'
 import './Poster.css'
 
-function Poster({tt, name, image, description, rating, genre, datePublished, actor, director}) {
+function Poster({id, coverPic, desc, title}) {
 //   let [movie, setMovie] = useState([]);
 //   let [tags, setTags] = useState([]);
 //   useEffect(() => {
@@ -32,8 +32,8 @@ function Poster({tt, name, image, description, rating, genre, datePublished, act
 
   return (
     <div className='poster'>
-        <img src={image} alt={name} className='poster-image'/>
-        <p>{description.substring(0, 80)}...<Link to={`/detail/${tt}`} style={{color: 'white'}}>Read on</Link></p>
+        <img src={'https://image.tmdb.org/t/p/w500/' + coverPic} alt={title} className='poster-image'/>
+        <p>{desc.substring(0, 80)}...<Link to={`/details/${id}`}>Read on</Link></p>
         {/* {stock} */}
     </div>
   )

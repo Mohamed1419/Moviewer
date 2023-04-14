@@ -1,28 +1,36 @@
 .flex {
     display: flex;
     flex-direction: row;
+
 }
+
 
 
 .poster {
     max-width: 200px;
     max-height: 400px;
-    border: 1px solid gold;
+    border: 1px solid #07393c;
     border-radius: 5px;
     padding: 10px;
-    color: gold;
+    color: #07393c;
     text-decoration: none; 
-    margin: 10px;
+    margin: 20px 10px;
     transition: 0.3s;
+    background-color: #f0edee;
+}
+
+.poster:hover {
+    transform: scale(1.05, 1.05)
 }
 
 .poster-image:hover {
-    /* background-color: gold; */
     max-width: 205px;
+    /* transform: scale(1.05, 1.05) */
 }
 
 .poster-image {
     max-width: 200px;
     max-height: 305px;
     transition: 0.3s;
+    border-radius: 10px;
 }

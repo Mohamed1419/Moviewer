@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import Poster from '../../components/Poster/Poster'
 import './HomePage.css'
 
 function HomePage() {
@@ -36,10 +37,14 @@ function HomePage() {
     return <div>Loading...</div>;
   } else {
     return (
-      <div>
-        {
-          movies.results.map((movie) => (<Link to={`/details/${movie.id}`} key={movie.id}><div>{movie.title}</div></Link>))
-        }
+      <div className='homepage'>
+        <div className='posters-section'>
+          {
+            movies.results.map((movie) => (
+              <Poster id={movie.id} coverPic={movie.poster_path} desc={movie.overview} title={movie.title} />
+              ))
+            }
+        </div>
       </div>
     );
   }

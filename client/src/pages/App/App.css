@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed&display=swap');
+
 .App {
   text-align: center;
-  background-color: #F0EDEE;
+  background-color: white;
+font-family: 'Barlow Condensed', sans-serif;
 }
 
 .App-logo {
