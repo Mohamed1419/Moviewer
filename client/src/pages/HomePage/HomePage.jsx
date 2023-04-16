@@ -41,7 +41,7 @@ function HomePage() {
         <div className='posters-section'>
           {
             movies.results.map((movie) => (
-              <Poster id={movie.id} coverPic={movie.poster_path} desc={movie.overview} title={movie.title} />
+              <Poster id={movie.id} coverPic={movie.poster_path} desc={movie.overview} title={movie.title} key={movie.id} />
               ))
             }
         </div>
