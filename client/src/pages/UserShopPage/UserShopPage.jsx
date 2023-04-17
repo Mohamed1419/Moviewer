@@ -3,6 +3,7 @@ import { React, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useUser from "../../hooks/UseUser";
 import { getUserDetails } from '../../utils/listingService';
+import Poster from '../../components/Poster/Poster';
 
 
 
@@ -10,6 +11,7 @@ function UserShopPage() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     let [userDetails, setUserDetails] = useState('')
+    let [userListings, setUserListings] = useState([])
     let navigate = useNavigate();
 
 
@@ -26,17 +28,33 @@ function UserShopPage() {
         (result) => {
           setIsLoaded(true);
           setUserDetails(result);
-          
+          if (result) {getMovies(result)}
           // testing to see results of successful fetch
           console.log(result);
         },
         (error) => {
-          setIsLoaded(true);
+          setIsLoaded(true)
           setError(error);
         })}
 
+
+      // then get all the movie ids and run a request to the movies API to get the details of all those movies
+
+        const getMovies = async (res) => {
+      try {
+        userListings = await Promise.all(res.listings.map(listing => fetch(`https://api.themoviedb.org/3/movie/${listing.movie_id}?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US`).then(res => res.json())));
+        setUserListings(userListings);
+        console.log('get user has run ssuccessfully');
+        console.log(userListings);
+        setIsLoaded(true);
+      } catch (error) {
+        setIsLoaded(true)
+        console.log(error);
+      }
+    };
+
     getUser();
-    // console.log(getUserDetails(param.id));
+
 
   }, [param])
 
@@ -47,9 +65,15 @@ function UserShopPage() {
   } else {
     return (
       <div>
-        <h1>{userDetails.id}</h1>
-        <h1>{userDetails.username}</h1>
-        <h1>no of listings: {userDetails.listings.length}</h1>
+        <h1>{userDetails.username}'s store</h1>
+         <div className='posters-section'>
+          {
+            userListings.map((movie) => (
+              <Poster id={movie.id} coverPic={movie.poster_path} desc={movie.overview} title={movie.title} key={movie.id} />
+              ))
+            }
+        </div>
+
       </div>
     );
   }
