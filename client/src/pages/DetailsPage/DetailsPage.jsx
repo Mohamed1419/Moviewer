@@ -9,6 +9,7 @@ function DetailsPage() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   let [movie, setMovie] = useState([])
+  let [movieCreds, setMovieCreds] = useState([])
   const param = useParams()
   const user = userService.getUser();
 
@@ -55,8 +56,8 @@ function DetailsPage() {
         .then(res => res.json())
         .then(
         (result) => {
-          setIsLoaded(true);
           setMovie(result);
+          if (result) {getMovieCreds(result.id)}
           // testing to see results of successful fetch
           console.log(result);
         },
@@ -65,8 +66,23 @@ function DetailsPage() {
           setError(error);
         })}
 
+    const getMovieCreds = async (res) => {
+        fetch(`https://api.themoviedb.org/3/movie/${res}/credits?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US`)
+        .then(res => res.json())
+        .then(
+        (result) => {
+          setMovieCreds(result);
+          setIsLoaded(true)
+          // testing to see results of successful fetch
+          console.log(result);
+        },
+        (error) => {
+          setError(error);
+        })}
+
 
   getMovie();
+
   }, [])
 
 
@@ -77,13 +93,23 @@ function DetailsPage() {
   } else {
     return (
       <div>
-        <h1>{movie.title}</h1>
-        {/* <form onSubmit={handleSubmit}>
-          <label>
-            <input type='number' value={value} required name='price' min="0" step=".01" onChange={onChange}></input>
-          </label>
-          <input type='submit' value='Submit' />
-        </form> */}
+        <div className='details-page'>
+          <div className='details-left'>
+            <img src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path} alt={movie.title} />
+            <div className='genres'>
+              {movie.genres.map((genre) => (<p className='genre'>{genre.name}</p>))}
+            </div>
+            <div className='director'>
+              Directed by: {movieCreds.crew.find(o => o.job === 'Director').name}
+            </div>
+            <div className='genres'>
+              {movieCreds.cast.slice(0, 5).map((star) => (<p className='star'>{star.name}</p>))}
+            </div>
+          </div>
+          <div className='details-right'>
+
+          </div>
+        </div>
 
 
           <div className='sell-form'>

@@ -1,0 +1,41 @@
+.details-page {
+    display: flex;
+    justify-content: space-between;
+}
+
+.details-left {
+
+}
+
+.details-right {
+
+}
+
+.genres {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.genre {
+    font-size: 20px;
+    color: white;
+    background-color: #2c666e;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.star {
+    transition: 0.3s;
+    text-decoration: underline transparent;
+}
+
+.star:hover {
+
+    text-decoration: underline;
+}
+
+.director {
+    font-size: 20px;
+}
