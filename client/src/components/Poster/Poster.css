@@ -23,14 +23,14 @@
     transform: scale(1.05, 1.05)
 }
 
-.poster-image:hover {
+/* .poster-image:hover {
     max-width: 205px;
-    /* transform: scale(1.05, 1.05) */
-}
+
+} */
 
 .poster-image {
-    max-width: 200px;
-    max-height: 305px;
+    width: 200px;
+    height: 305px;
     transition: 0.3s;
     border-radius: 10px;
 }

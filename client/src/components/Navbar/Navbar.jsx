@@ -9,7 +9,6 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const NavBar = () => {
   const { handleLogout, user } = useUser();
-  console.log(user);
 
   
   let [UserDetails, setUserDetails] = useState('')
