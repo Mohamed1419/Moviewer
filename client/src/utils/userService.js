@@ -18,9 +18,9 @@ function signup(user) {
 }
 
 function getUser() {
-  console.log(
-    "getUserFromToken in getUser function: " + tokenService.getUserFromToken()
-  );
+  // console.log(
+  //   "getUserFromToken in getUser function: " + tokenService.getUserFromToken()
+  // );
   // return fetch(
   //   BASE_URL + `users/details/${tokenService.getUserFromToken()}`
   // ).then((res) => {

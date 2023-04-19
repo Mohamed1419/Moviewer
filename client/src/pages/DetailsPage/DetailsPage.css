@@ -1,8 +1,15 @@
 .details-page {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    /* background-image: linear-gradient(rgba(0, 8, 51, 0.1), rgba(0, 8, 51, 0.9)); */
+    background-position: center;
+    background-size: cover;
+    /* opacity: 0.1; */
 }
 
+.details-page div {
+    margin: 30px auto;
+}
 .details-left {
 
 }
@@ -38,4 +45,10 @@
 
 .director {
     font-size: 20px;
+}
+
+.title-price {
+    display: flex;
+    justify-content: space-evenly;
+    width: 500px;
 }

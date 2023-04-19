@@ -4,14 +4,21 @@ import './DetailsPage.css'
 import { useParams } from 'react-router-dom';
 import {createAListing} from '../../utils/listingService'
 import userService from '../../utils/userService'
+import { useNavigate } from 'react-router-dom'
+
 
 function DetailsPage() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   let [movie, setMovie] = useState([])
   let [movieCreds, setMovieCreds] = useState([])
+  let [listings, setListings] = useState([])
+  let [listings2, setListings2] = useState([])
   const param = useParams()
   const user = userService.getUser();
+  const navigate = useNavigate()
+
+  const BASE_URL = 'http://localhost:8000/api/v1/'
 
   const [formListing, setFormListing] = useState({
       movie_id: param.id.toString(), 
@@ -46,45 +53,66 @@ function DetailsPage() {
 
         createAListing(formData).then(res => {
         console.log(res)
-      })
+      }).then(navigate(0))
     }
 
   useEffect(() => {
-    // fetching the movie using the params which carries its unique id and fetches from the third party API based upon that
-    const getMovie = async () => {
-        fetch(`https://api.themoviedb.org/3/movie/${param.id}?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US`)
-        .then(res => res.json())
-        .then(
-        (result) => {
-          setMovie(result);
-          if (result) {getMovieCreds(result.id)}
-          // testing to see results of successful fetch
-          console.log(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        })}
 
-    const getMovieCreds = async (res) => {
-        fetch(`https://api.themoviedb.org/3/movie/${res}/credits?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US`)
-        .then(res => res.json())
-        .then(
-        (result) => {
-          setMovieCreds(result);
-          setIsLoaded(true)
-          // testing to see results of successful fetch
-          console.log(result);
-        },
-        (error) => {
-          setError(error);
-        })}
+        function fetchMovie() {
+          return fetch(`https://api.themoviedb.org/3/movie/${param.id}?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US`)
+          .then(response => response.json())
+          .then((res => {setMovie(res); console.log(res);}), (err) => {
+            setError(err)
+          })
+        };
+        
+        function fetchCreds() {
+          return fetch(`https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US`)
+          .then(response => response.json())
+          .then(res => {setMovieCreds(res); console.log(res);}, (err) => {
+            setError(err)
+          });
+        };
 
 
-  getMovie();
+        function fetchMovieListings() {
+          return fetch(BASE_URL)
+            .then(response => response.json())
+            .then(res => {
+              setListings(res);
+              return res;
+            })
+            .catch(err => {
+              setError(err);
+            });
+        }
 
-  }, [])
 
+        function fetchData() {
+          fetchMovie()
+            .then(movieObj => {
+              return Promise.all([
+                fetchCreds(),
+                fetchMovieListings()
+              ]);
+            })
+            .then(([data2, data3]) => {
+              setIsLoaded(true);
+            })
+            .catch(error => {
+              setError(error);
+            });
+        }
+
+
+  fetchData();
+
+  
+}, [])
+
+  useEffect(() => {
+    setListings2(listings.filter(el => el.movie_id === movie.id))
+  }, [listings]);
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -93,7 +121,8 @@ function DetailsPage() {
   } else {
     return (
       <div>
-        <div className='details-page'>
+        <div className='details-page' style={{backgroundImage: `linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`}}>
+
           <div className='details-left'>
             <img src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path} alt={movie.title} />
             <div className='genres'>
@@ -107,9 +136,16 @@ function DetailsPage() {
             </div>
           </div>
           <div className='details-right'>
-
+            <div className='title-price'>
+              <div><h2>{movie.title}</h2></div>
+              <div>
+                {listings2.length > 0 ? (<h2>£{  Math.min(...listings2.map(item => item.price ))  }</h2>) : (<h2>None available</h2>)}
+              </div>
+            </div>
           </div>
+  
         </div>
+
 
 
           <div className='sell-form'>
