@@ -112,6 +112,7 @@ function DetailsPage() {
 
   useEffect(() => {
     setListings2(listings.filter(el => el.movie_id === movie.id))
+    console.log(listings2);
   }, [listings]);
 
   if (error) {
@@ -141,6 +142,23 @@ function DetailsPage() {
               <div>
                 {listings2.length > 0 ? (<h2>£{  Math.min(...listings2.map(item => item.price ))  }</h2>) : (<h2>None available</h2>)}
               </div>
+            </div>
+            <div className='description'>
+              <h2>{movie.overview}</h2>
+            </div>
+            <div className='rating-release'>
+              <h2>Viewer rating: {movie.vote_average}/10</h2>
+              <h2>Release date: {movie.release_date}</h2>
+            </div>
+            <div className='offers'>
+              <h2>Offers available:</h2>
+              {listings2.length > 0 ? (listings2.map((listing) => (
+                <div className='seller-offer'>
+                  <p>{listing.author.username}</p>
+                  <p>£{listing.price}</p>
+                  <button>Add to cart</button>
+                </div>
+              ))) : (<h2>None currently available</h2>)}
             </div>
           </div>
   

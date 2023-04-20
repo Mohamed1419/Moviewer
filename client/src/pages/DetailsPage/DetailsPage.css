@@ -51,4 +51,47 @@
     display: flex;
     justify-content: space-evenly;
     width: 500px;
+    
+}
+
+.title-price h2 {
+    color: white;
+    background-color: #2c666e;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.description {
+    max-width: 500px;
+    line-break: anywhere; 
+    text-align: left;
+}
+
+.rating-release {
+    text-align: left;
+}
+
+.offers {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    height: 300px;
+    overflow: auto;
+}
+
+.seller-offer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border: 1px solid black;
+    color: white;
+    background-color: #2c666e;
+    border-radius: 5px;
+    width: 100%;
+    margin: 0px auto;
+
 }
