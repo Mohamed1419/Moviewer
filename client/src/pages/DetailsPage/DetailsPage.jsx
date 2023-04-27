@@ -156,24 +156,26 @@ function DetailsPage() {
                 <div className='seller-offer'>
                   <p>{listing.author.username}</p>
                   <p>£{listing.price}</p>
-                  <button>Add to cart</button>
+                  <button className='add-to-cart-btn'>Add to cart</button>
                 </div>
               ))) : (<h2>None currently available</h2>)}
             </div>
+            
+            <div className='sell-form'>
+            <h3>Have one to sell?</h3>
+            <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
+              <label>Price:</label>
+              <input name='price' value={formListing.price} onChange={handleChange} type="number" min="1" step=".01"></input>
+              <button type='Submit' disabled={!formIsValid} className='add-to-cart-btn'>Confirm listing</button>
+            </form>
           </div>
-  
+
+          </div>
         </div>
 
 
 
-          <div className='sell-form'>
-            <h3>Have one to sell?</h3>
-            <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
-              <label>Price</label>
-              <input name='price' value={formListing.price} onChange={handleChange} type="number" min="1" step=".01"></input>
-              <button type='Submit' disabled={!formIsValid}>Confirm listing</button>
-            </form>
-          </div>
+          
       </div>
     );
   }
