@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import {createAListing} from '../../utils/listingService'
 import userService from '../../utils/userService'
 import { useNavigate } from 'react-router-dom'
+import { removeAListing } from '../../utils/listingService';
+import tokenService from '../../utils/tokenService'
 
 
 function DetailsPage() {
@@ -55,6 +57,11 @@ function DetailsPage() {
         console.log(res)
       }).then(navigate(0))
     }
+
+      const handleDelete = (listing) => {
+        console.log('It has been called on ' + listing);
+        removeAListing(listing).then(navigate(0))
+      }
 
   useEffect(() => {
 
@@ -154,9 +161,9 @@ function DetailsPage() {
               <h2>Offers available:</h2>
               {listings2.length > 0 ? (listings2.map((listing) => (
                 <div className='seller-offer'>
-                  <p>{listing.author.username}</p>
+                  {listing.author.id === user ? (<p>You</p>) : (<p>{listing.author.username}</p>)}
                   <p>£{listing.price}</p>
-                  <button className='add-to-cart-btn'>Add to cart</button>
+                  {listing.author.id === user ? (<button className='del-btn' type='button' onClick={() => handleDelete(listing.id)}>Delete</button>) : (<button className='add-to-cart-btn'>Add to cart</button>)}
                 </div>
               ))) : (<h2>None currently available</h2>)}
             </div>

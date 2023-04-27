@@ -42,7 +42,7 @@ export const updateAListing = async (listing) => {
   try {
     const token = tokenService.getToken();
 
-    let res = await fetch(BASE_URL + `api/v1/${listing._id}`, {
+    let res = await fetch(BASE_URL + `api/v1/${listing.id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -75,14 +75,13 @@ export const createAListing = async (listing) => {
 export const removeAListing = async (listing) => {
   try {
     console.log("listing was deleted");
-    const token = tokenService();
-    let res = await fetch(BASE_URL + `api/v1/${listing._id}`, {
+    const token = tokenService.getToken();
+    let res = await fetch(BASE_URL + `api/v1/${listing}/`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
         Authorization: "Bearer " + token,
       },
-      body: JSON.stringify(listing),
     });
     return res;
   } catch (error) {
