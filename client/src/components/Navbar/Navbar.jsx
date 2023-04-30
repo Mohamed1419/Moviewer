@@ -62,10 +62,10 @@ const NavBar = () => {
 
       <Link
         to={`/user/${user}`}
-        className="user-name"
-        style={{ color: "#07393C" }}
+        className="navBar-signup"
+
       >
-        {user}
+        My Store
       </Link>
 
     </div>

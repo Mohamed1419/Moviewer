@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import {createAListing} from '../../utils/listingService'
 import userService from '../../utils/userService'
 import { useNavigate } from 'react-router-dom'
-import { removeAListing } from '../../utils/listingService';
+import { removeAListing, updateAListing } from '../../utils/listingService';
 import tokenService from '../../utils/tokenService'
 
 
@@ -28,14 +28,28 @@ function DetailsPage() {
       price: 0.00, 
     })
 
+  const [editForm, setEditForm] = useState({
+    movie_id: param.id.toString(),
+    author: user, 
+    price: 0.00,
+  })
+
+  let handleEditChange = (e) => {
+    setEditForm({...editForm, [e.target.name]: e.target.value})
+    console.log(editForm.price, editForm.author, editForm.movie_id);
+  }
+
+  let handleChange = (e) => {
+    setFormListing({...formListing, [e.target.name]: e.target.value})
+  }
+
     let priceIsValid = formListing.price !== "" && formListing.price > 0
     let formIsValid = priceIsValid;
 
+    let editPriceIsValid = editForm.price !== '' && editForm.price > 0
+    let editFormIsValid = editPriceIsValid;
 
-    let handleChange = (e) => {
-      setFormListing({...formListing, [e.target.name]: e.target.value})
-    }
-  
+
     let handleSubmit = (e) => {
       console.log(user);
       console.log(formListing);
@@ -54,8 +68,27 @@ function DetailsPage() {
       })
 
         createAListing(formData).then(res => {
-        console.log(res)
-      }).then(navigate(0))
+        console.log(res).then(navigate(0))
+      })
+    }
+
+    let handleEditSubmit = (id) => (e) => {
+      e.preventDefault()
+      const formData = new FormData();
+      // loop through the state of the new edit form and make an object to send to the back end 
+      Object.keys(editForm).forEach(key => {
+        if (editForm[key].constructor === Array) {
+          editForm[key].forEach(item => {
+            formData.append(key, item)
+            console.log(formData);
+          })
+        } else {
+          formData.append(key, editForm[key])
+          console.log(formData);
+        }
+      })
+
+      updateAListing(formData, id).then(res => console.log(res))
     }
 
       const handleDelete = (listing) => {
@@ -68,7 +101,7 @@ function DetailsPage() {
         function fetchMovie() {
           return fetch(`https://api.themoviedb.org/3/movie/${param.id}?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US`)
           .then(response => response.json())
-          .then((res => {setMovie(res); console.log(res);}), (err) => {
+          .then((res => {setMovie(res);}), (err) => {
             setError(err)
           })
         };
@@ -76,7 +109,7 @@ function DetailsPage() {
         function fetchCreds() {
           return fetch(`https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US`)
           .then(response => response.json())
-          .then(res => {setMovieCreds(res); console.log(res);}, (err) => {
+          .then(res => {setMovieCreds(res);}, (err) => {
             setError(err)
           });
         };
@@ -119,7 +152,7 @@ function DetailsPage() {
 
   useEffect(() => {
     setListings2(listings.filter(el => el.movie_id === movie.id))
-    console.log(listings2);
+
   }, [listings]);
 
   if (error) {
@@ -132,7 +165,9 @@ function DetailsPage() {
         <div className='details-page' style={{backgroundImage: `linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`}}>
 
           <div className='details-left'>
+
             <img src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path} alt={movie.title} />
+            
             <div className='genres'>
               {movie.genres.map((genre) => (<p className='genre'>{genre.name}</p>))}
             </div>
@@ -162,7 +197,15 @@ function DetailsPage() {
               {listings2.length > 0 ? (listings2.map((listing) => (
                 <div className='seller-offer'>
                   {listing.author.id === user ? (<p>You</p>) : (<p>{listing.author.username}</p>)}
-                  <p>£{listing.price}</p>
+                  {/* <p>£{listing.price}</p> */}
+                  {listing.author.id === user ? (
+
+                  <form className='edit-form' onSubmit={(e) => handleEditSubmit(listing.id)(e)} encType="multipart/form-data">
+                    <input name='price' placeholder={listing.price} onChange={handleEditChange} type='number' min='1' step='.01'></input>
+                    <button className='del-btn' type='Submit'>Confirm edit</button>
+                  </form>
+
+                    ) : (<p>£{listing.price}</p>)}
                   {listing.author.id === user ? (<button className='del-btn' type='button' onClick={() => handleDelete(listing.id)}>Delete</button>) : (<button className='add-to-cart-btn'>Add to cart</button>)}
                 </div>
               ))) : (<h2>None currently available</h2>)}
@@ -170,11 +213,13 @@ function DetailsPage() {
             
             <div className='sell-form'>
             <h3>Have one to sell?</h3>
+
             <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
               <label>Price:</label>
               <input name='price' value={formListing.price} onChange={handleChange} type="number" min="1" step=".01"></input>
               <button type='Submit' disabled={!formIsValid} className='add-to-cart-btn'>Confirm listing</button>
             </form>
+
           </div>
 
           </div>

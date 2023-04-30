@@ -70,7 +70,7 @@ function UserShopPage() {
          <div className='posters-section'>
           {
             userDetails.listings.map((listing, index) => (
-              <ListingPosters listingId={listing.id} movieId={listing.movieId} coverPic={userListings[index].poster_path} desc={userListings[index].overview} title={userListings[index].title} key={listing.id} price={listing.price} />
+              <ListingPosters listingId={listing.id} movieId={listing.movie_id} coverPic={userListings[index].poster_path} desc={userListings[index].overview} title={userListings[index].title} key={listing.id} price={listing.price} />
               ))
             }
         </div>

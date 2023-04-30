@@ -38,24 +38,6 @@ export const getUserDetails = async (userID) => {
   }
 };
 
-export const updateAListing = async (listing) => {
-  try {
-    const token = tokenService.getToken();
-
-    let res = await fetch(BASE_URL + `api/v1/${listing.id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(listing),
-    });
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const createAListing = async (listing) => {
   try {
     const token = tokenService.getToken();
@@ -84,6 +66,23 @@ export const removeAListing = async (listing) => {
       },
     });
     return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateAListing = async (listing, listingId) => {
+  try {
+    const token = tokenService.getToken();
+    let res = await fetch(BASE_URL + `api/v1/${listingId}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(listing),
+    });
+    return res.json();
   } catch (error) {
     console.log(error);
   }
