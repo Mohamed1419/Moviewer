@@ -64,18 +64,21 @@ function DetailsPage() {
         } else {
           formData.append(key, formListing[key])
           console.log(formData);
+          console.log(formListing);
         }
       })
 
         createAListing(formData).then(res => {
-        console.log(res).then(navigate(0))
-      })
+        console.log(formListing);
+        console.log(res)
+      }).then(navigate(0))
     }
 
     let handleEditSubmit = (id) => (e) => {
       e.preventDefault()
       const formData = new FormData();
       // loop through the state of the new edit form and make an object to send to the back end 
+
       Object.keys(editForm).forEach(key => {
         if (editForm[key].constructor === Array) {
           editForm[key].forEach(item => {
@@ -85,10 +88,11 @@ function DetailsPage() {
         } else {
           formData.append(key, editForm[key])
           console.log(formData);
+          console.log(editForm);
         }
       })
 
-      updateAListing(formData, id).then(res => console.log(res))
+      updateAListing(editForm, id).then(res => console.log(res)).then(navigate(0))
     }
 
       const handleDelete = (listing) => {
@@ -152,7 +156,6 @@ function DetailsPage() {
 
   useEffect(() => {
     setListings2(listings.filter(el => el.movie_id === movie.id))
-    console.log(movie);
   }, [listings]);
 
   if (error) {

@@ -40,6 +40,7 @@ export const getUserDetails = async (userID) => {
 
 export const createAListing = async (listing) => {
   try {
+    console.log(listing);
     const token = tokenService.getToken();
     let res = await fetch(BASE_URL + `api/v1/`, {
       method: "POST",
@@ -73,8 +74,9 @@ export const removeAListing = async (listing) => {
 
 export const updateAListing = async (listing, listingId) => {
   try {
+    console.log(listing);
     const token = tokenService.getToken();
-    let res = await fetch(BASE_URL + `api/v1/${listingId}`, {
+    let res = await fetch("http://localhost:8000/api/v1/" + listingId + "/", {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
