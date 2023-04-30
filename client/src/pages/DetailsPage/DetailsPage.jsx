@@ -152,7 +152,7 @@ function DetailsPage() {
 
   useEffect(() => {
     setListings2(listings.filter(el => el.movie_id === movie.id))
-
+    console.log(movie);
   }, [listings]);
 
   if (error) {
@@ -165,9 +165,10 @@ function DetailsPage() {
         <div className='details-page' style={{backgroundImage: `linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`}}>
 
           <div className='details-left'>
+            {
+              movie.poster_path ? (<img src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path} alt={movie.title} />) : (<img src={require('../../images/753134_festival_film_icon.png')} alt={movie.title}/>)
+            }
 
-            <img src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path} alt={movie.title} />
-            
             <div className='genres'>
               {movie.genres.map((genre) => (<p className='genre'>{genre.name}</p>))}
             </div>
