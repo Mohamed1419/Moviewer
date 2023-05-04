@@ -184,7 +184,7 @@ function DetailsPage() {
               {movie.genres.map((genre) => (<p className='genre' key={genre.name}>{genre.name}</p>))}
             </div>
             <div className='director'>
-              Directed by: {movieCreds.crew.find(o => o.job === 'Director').name}
+              Directed by: {movieCreds.crew.length > 0 ? (movieCreds.crew.find(o => o.job === 'Director').name) : (<p>No data available</p>)}
             </div>
             <div className='genres'>
               {movieCreds.cast.slice(0, 5).map((star) => (<p className='star' key={star.name}>{star.name}</p>))}
