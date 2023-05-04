@@ -23,7 +23,7 @@ function ResultsPage() {
           setIsLoaded(true);
           setMovies(result);
           // testing to see results of successful fetch
-          console.log(result);
+          // console.log(result);
         },
         (error) => {
           setIsLoaded(true);

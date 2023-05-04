@@ -22,32 +22,32 @@ function UserShopPage() {
 
     const param = useParams()
 
-    const [editForm, setEditForm] = useState({
-    movie_id: param.id.toString(),
-    author: user, 
-    price: 0.00,
-  })
+  //   const [editForm, setEditForm] = useState({
+  //   movie_id: param.id.toString(),
+  //   author: user, 
+  //   price: 0.00,
+  // })
 
-      let handleEditSubmit = (id) => (e) => {
-      e.preventDefault()
-      const formData = new FormData();
-      // loop through the state of the new edit form and make an object to send to the back end 
+  //     let handleEditSubmit = (id) => (e) => {
+  //     e.preventDefault()
+  //     const formData = new FormData();
+  //     // loop through the state of the new edit form and make an object to send to the back end 
 
-      Object.keys(editForm).forEach(key => {
-        if (editForm[key].constructor === Array) {
-          editForm[key].forEach(item => {
-            formData.append(key, item)
-            console.log(formData);
-          })
-        } else {
-          formData.append(key, editForm[key])
-          console.log(formData);
-          console.log(editForm);
-        }
-      })
+  //     Object.keys(editForm).forEach(key => {
+  //       if (editForm[key].constructor === Array) {
+  //         editForm[key].forEach(item => {
+  //           formData.append(key, item)
+  //           console.log(formData);
+  //         })
+  //       } else {
+  //         formData.append(key, editForm[key])
+  //         console.log(formData);
+  //         console.log(editForm);
+  //       }
+  //     })
 
-      updateAListing(editForm, id).then(res => console.log(res)).then(navigate(0))
-    }
+  //     updateAListing(editForm, id).then(res => console.log(res)).then(navigate(0))
+  //   }
 
         const handleDelete = (listing) => {
         console.log('It has been called on ' + listing);
@@ -55,23 +55,7 @@ function UserShopPage() {
       }
 
     useEffect(() => {
-    // fetching the movie using the params which carries its unique id and fetches from the third party API based upon that
-    const getUser = async () => {
-        fetch(BASE_URL + `users/details/${param.id}/`)
-        .then(res => res.json())
-        .then(
-        (result) => {
-          // setIsLoaded(true);
-          setUserDetails(result);
-          // console.log(userDetails);
-          if (result) {getMovies(result)}
-          // testing to see results of successful fetch
-          // console.log(result);
-        },
-        (error) => {
-          setIsLoaded(true)
-          setError(error);
-        })}
+
 
 
       // then get all the movie ids and run a request to the movies API to get the details of all those movies
@@ -89,6 +73,25 @@ function UserShopPage() {
       }
     };
 
+        // fetching the movie using the params which carries its unique id and fetches from the third party API based upon that
+    const getUser = async () => {
+        fetch(BASE_URL + `users/details/${param.id}/`)
+        .then(res => res.json())
+        .then(
+        (result) => {
+          // setIsLoaded(true);
+          setUserDetails(result);
+          // console.log(userDetails);
+          if (result) {getMovies(result)}
+          // testing to see results of successful fetch
+          // console.log(result);
+        },
+        (error) => {
+          setIsLoaded(true)
+          setError(error);
+        })}
+
+    setIsLoaded(false)
     getUser();
 
 

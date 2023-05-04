@@ -46,6 +46,7 @@ function ListingPosters(props) {
     }
 
   return (
+    
         <div className='listing-poster'>
           {props.userListings.poster_path ? ( <img src={'https://image.tmdb.org/t/p/w500/' + props.userListings.poster_path} alt={props.userListings.title} className='poster-image'/>
                         ) : (<img src={require('../../images/753134_festival_film_icon.png')} alt={props.userListings.title} className='poster-image' />)}
