@@ -46,7 +46,7 @@ function IndividualOffer(props) {
 
         <form className='edit-form' onSubmit={(e) => handleEditSubmit(props.listing.id)(e)} encType="multipart/form-data">
             <input name='price' placeholder={props.listing.price} onChange={handleEditChange} type='number' min='1' step='.01'></input>
-            <button className='del-btn' type='Submit' disabled={!editFormIsValid}>Confirm edit</button>
+            <button className='edit-btn' type='Submit' disabled={!editFormIsValid}>Confirm edit</button>
         </form>
 
             ) : (<p>£{props.listing.price}</p>)}

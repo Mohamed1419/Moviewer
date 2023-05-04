@@ -5,9 +5,6 @@ import {Link} from 'react-router-dom'
 import { updateAListing } from '../../utils/listingService'
 
 
-
-
-
 function ListingPosters(props) {
 
     const [editForm, setEditForm] = useState({
@@ -53,13 +50,14 @@ function ListingPosters(props) {
           {props.userListings.poster_path ? ( <img src={'https://image.tmdb.org/t/p/w500/' + props.userListings.poster_path} alt={props.userListings.title} className='poster-image'/>
                         ) : (<img src={require('../../images/753134_festival_film_icon.png')} alt={props.userListings.title} className='poster-image' />)}
             <p>{props.userListings.overview.substring(0, 80)}...<Link to={`/details/${props.listing.movie_id}`}>Read on</Link></p>
+            
             {props.listing.author.id === props.user ? (
               <div>
                 <form onSubmit={(e) => handleEditSubmit(props.listing.id)(e)} encType="multipart/form-data">
                     <input name='price' placeholder={props.listing.price} onChange={handleEditChange} type='number' min='1' step='.01'></input>
-                    <button className='del-btn' type='Submit' disabled={!editFormIsValid}>Confirm edit</button>
+                    <button className='edit-btn' type='Submit' disabled={!editFormIsValid}>Confirm edit</button>
                 </form>
-                <button type='button' onClick={() => props.handleDelete(props.listing.id)}>Delete Listing</button>
+                <button className='profile-del-btn' type='button' onClick={() => props.handleDelete(props.listing.id)}>Delete Listing</button>
               </div>
             ) : (
               <div>
