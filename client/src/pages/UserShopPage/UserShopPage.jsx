@@ -49,6 +49,11 @@ function UserShopPage() {
       updateAListing(editForm, id).then(res => console.log(res)).then(navigate(0))
     }
 
+        const handleDelete = (listing) => {
+        console.log('It has been called on ' + listing);
+        removeAListing(listing).then(navigate(0))
+      }
+
     useEffect(() => {
     // fetching the movie using the params which carries its unique id and fetches from the third party API based upon that
     const getUser = async () => {
@@ -58,7 +63,7 @@ function UserShopPage() {
         (result) => {
           // setIsLoaded(true);
           setUserDetails(result);
-          console.log(user.user);
+          // console.log(userDetails);
           if (result) {getMovies(result)}
           // testing to see results of successful fetch
           // console.log(result);
@@ -75,7 +80,8 @@ function UserShopPage() {
       try {
         userListings = await Promise.all(res.listings.map(listing => fetch(`https://api.themoviedb.org/3/movie/${listing.movie_id}?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US`).then(res => res.json())));
         setUserListings(userListings);
-        console.log(userListings);
+        // console.log(userListings);
+        // console.log(userDetails);
         setIsLoaded(true);
       } catch (error) {
         setIsLoaded(true)
@@ -99,20 +105,13 @@ function UserShopPage() {
          <div className='posters-section'>
           {
             userDetails.listings.map((listing, index) => (
-              <ListingPosters listingId={listing.id} 
-              movieId={listing.movie_id} 
-              coverPic={userListings[index].poster_path} 
-              desc={userListings[index].overview} 
-              title={userListings[index].title} 
-              key={listing.id} 
-              price={listing.price} 
-              author={listing.author.id} 
-              user={user.user} 
-              removeAListing={removeAListing}
-              updateAListing={updateAListing}
-              editForm={editForm}
-              setEditForm={setEditForm}
-              handleEditSubmit={handleEditSubmit}
+              <ListingPosters key={listing.id}
+                navigate={navigate}
+                param={param}
+                listing={listing}
+                userListings={userListings[index]} 
+                user={user.user} 
+                handleDelete={handleDelete}
               />
               ))
             }

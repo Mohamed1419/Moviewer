@@ -1,4 +1,4 @@
-.posters-section {
+/* .posters-section {
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -6,7 +6,7 @@
     margin-bottom: 40px;
     width: 100%;
 
-}
+} */
 
 .posters {
     margin: 100px 10px;
