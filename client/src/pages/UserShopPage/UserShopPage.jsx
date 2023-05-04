@@ -101,7 +101,8 @@ function UserShopPage() {
   } else {
     return (
       <div>
-        <h1 className='store-title'>{userDetails.username}'s store</h1>
+        <h1 className='title'>{userDetails.username}'s store</h1>
+        <hr />
          <div className='posters-section'>
           {
             userDetails.listings.map((listing, index) => (

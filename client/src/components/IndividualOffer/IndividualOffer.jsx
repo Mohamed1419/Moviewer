@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import './IndividualOffer.css'
 import { updateAListing } from '../../utils/listingService'
+import {Link} from 'react-router-dom'
 
 function IndividualOffer(props) {
 
@@ -41,7 +42,7 @@ function IndividualOffer(props) {
 
   return (
     <div className='individual-seller-offer'>
-        {props.listing.author.id === props.user ? (<p>You</p>) : (<p>{props.listing.author.username}</p>)}
+        {props.listing.author.id === props.user ? (<p>You</p>) : (<p><Link className='underline-link' to={`/user/${props.listing.author.id}`}>{props.listing.author.username}</Link></p>)}
         {props.listing.author.id === props.user ? (
 
         <form className='edit-form' onSubmit={(e) => handleEditSubmit(props.listing.id)(e)} encType="multipart/form-data">
@@ -49,7 +50,7 @@ function IndividualOffer(props) {
             <button className='edit-btn' type='Submit' disabled={!editFormIsValid}>Confirm edit</button>
         </form>
 
-            ) : (<p>£{props.listing.price}</p>)}
+            ) : (<p className='price'>£{props.listing.price}</p>)}
         {props.listing.author.id === props.user ? (<button className='del-btn' type='button' onClick={() => props.handleDelete(props.listing.id)}>Delete</button>) : (<button className='add-to-cart-btn'>Add to cart</button>)}
     </div>
   )

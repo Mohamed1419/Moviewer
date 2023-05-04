@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { removeAListing, updateAListing } from '../../utils/listingService';
 import tokenService from '../../utils/tokenService'
 import IndividualOffer from '../../components/IndividualOffer/IndividualOffer';
+import { Link } from 'react-router-dom';
 
 
 function DetailsPage() {
@@ -236,11 +237,15 @@ function DetailsPage() {
             <div className='sell-form'>
             <h3>Have one to sell?</h3>
 
-            <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
-              <label>Price:</label>
-              <input name='price' value={formListing.price} onChange={handleChange} type="number" min="1" step=".01"></input>
-              <button type='Submit' disabled={!formIsValid} className='add-to-cart-btn'>Confirm listing</button>
-            </form>
+            {
+              user ? ( 
+              <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
+                <label>Price:</label>
+                <input name='price' value={formListing.price} onChange={handleChange} type="number" min="1" step=".01"></input>
+                <button type='Submit' disabled={!formIsValid} className='add-to-cart-btn'>Confirm listing</button>
+              </form>
+            ) : (<p className='signup-message'>Please <Link className='underline-link' to={'/login'}>login</Link> or <Link className='underline-link' to={'/signup'}>register</Link> to sell yours today!</p>)
+            }
 
           </div>
 

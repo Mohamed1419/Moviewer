@@ -1,7 +1,13 @@
-.store-title {
+.title {
     font-size: 30px;
+    text-align: left;
+    margin-left: 9%;
 }
 
 .user-posters-section {
     
+}
+
+hr {
+    width: 82%;
 }

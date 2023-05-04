@@ -41,12 +41,16 @@ function ResultsPage() {
     return <div>Loading...</div>;
   } else {
     return (
-      <div className='posters-section'>
-          {
-            movies.results.map((movie) => (
-              <Poster id={movie.id} coverPic={movie.poster_path} desc={movie.overview} title={movie.title} key={movie.id} />
-              ))
-            }
+      <div>
+        <h1 className='title'>Results for "{param.query}"</h1>
+        <hr />
+        <div className='posters-section'>
+            {
+              movies.results.map((movie) => (
+                <Poster id={movie.id} coverPic={movie.poster_path} desc={movie.overview} title={movie.title} key={movie.id} />
+                ))
+              }
+        </div>
       </div>
     );
   }

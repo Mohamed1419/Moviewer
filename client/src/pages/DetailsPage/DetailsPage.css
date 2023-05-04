@@ -101,7 +101,8 @@
 
 .add-to-cart-btn {
     margin: 20px 0;
-    background-color: #f0edee;
+    color: white;
+    background-color: #07393c;
     border: none;
     padding: 3px 5px;
     border-radius: 10px;
@@ -109,7 +110,7 @@
 }
 
 .add-to-cart-btn:hover {
-    box-shadow: #07393c 3px 2px 1px 2px;
+    transform: scale(1.02, 1.02)
 }
 
 .del-btn {
@@ -136,7 +137,7 @@
 }
 
 .edit-btn:hover {
-    box-shadow: #07393c 3px 2px 1px 2px;
+        transform: scale(1.02, 1.05)
 }
 
 .form {
@@ -159,6 +160,11 @@
     margin: 20px 0;
 }
 
+.signup-message {
+        border: 1px solid black;
+            border-radius: 5px;
+            padding: 20px;
+}
 /* .edit-form {
     display: flex;
     flex-direction: row;

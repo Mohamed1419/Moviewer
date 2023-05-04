@@ -38,4 +38,23 @@
 .profile-del-btn:hover {
     background-color: red;
     color: white;
+    transform: scale(1.02, 1.02)
+}
+
+.buy-now-btn {
+        background-color: #07393c;
+        border: none;
+        padding: 3px 5px;
+        border-radius: 10px;
+        transition: 0.2s;
+        color: white;
+}
+
+.buy-now-btn:hover {
+        transform: scale(1.05, 1.05)
+}
+
+.price {
+    font-weight: bold;
+    font-size: 20px;
 }

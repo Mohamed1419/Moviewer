@@ -61,8 +61,8 @@ function ListingPosters(props) {
               </div>
             ) : (
               <div>
-                <p>{props.listing.price}</p>
-                <button>Buy now</button>
+                <p className='price'>{props.listing.price}</p>
+                <button className='buy-now-btn'>Buy now</button>
               </div>
             )}
         </div>

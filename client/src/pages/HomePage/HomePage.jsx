@@ -38,6 +38,8 @@ function HomePage() {
   } else {
     return (
       <div className='homepage'>
+        <h1 className='title'>Trending Movies</h1>
+        <hr />
         <div className='posters-section'>
           {
             movies.results.map((movie) => (
