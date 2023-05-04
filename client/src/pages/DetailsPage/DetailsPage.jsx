@@ -7,6 +7,7 @@ import userService from '../../utils/userService'
 import { useNavigate } from 'react-router-dom'
 import { removeAListing, updateAListing } from '../../utils/listingService';
 import tokenService from '../../utils/tokenService'
+import IndividualOffer from '../../components/IndividualOffer/IndividualOffer';
 
 
 function DetailsPage() {
@@ -28,26 +29,32 @@ function DetailsPage() {
       price: 0.00, 
     })
 
-  const [editForm, setEditForm] = useState({
-    movie_id: param.id.toString(),
-    author: user, 
-    price: 0.00,
-  })
+  // const [editForm, setEditForm] = useState({
+  //   movie_id: param.id.toString(),
+  //   author: user, 
+  //   price: 0.00,
+  // })
 
-  let handleEditChange = (e) => {
-    setEditForm({...editForm, [e.target.name]: e.target.value})
-    console.log(editForm.price, editForm.author, editForm.movie_id);
-  }
+  // let handleEditChange = (e) => {
+  //   setEditForm({...editForm, [e.target.name]: e.target.value})
+  //   console.log(editForm.price, editForm.author, editForm.movie_id);
+  // }
 
   let handleChange = (e) => {
     setFormListing({...formListing, [e.target.name]: e.target.value})
   }
 
-    let priceIsValid = formListing.price !== "" && formListing.price > 0
-    let formIsValid = priceIsValid;
+  let priceIsValid = formListing.price !== "" && formListing.price > 0
+  let formIsValid = priceIsValid;
 
-    let editPriceIsValid = editForm.price !== '' && editForm.price > 0
-    let editFormIsValid = editPriceIsValid;
+  // let editPriceIsValid = editForm.price !== '' && editForm.price > 0
+  // let editFormIsValid = editPriceIsValid;
+
+  // const [isInputTouched, setIsInputTouched] = useState(false);
+
+  // const handleInputTouch = () => {
+  //   setIsInputTouched(true);
+  // };
 
 
     let handleSubmit = (e) => {
@@ -74,26 +81,26 @@ function DetailsPage() {
       }).then(navigate(0))
     }
 
-    let handleEditSubmit = (id) => (e) => {
-      e.preventDefault()
-      const formData = new FormData();
-      // loop through the state of the new edit form and make an object to send to the back end 
+    // let handleEditSubmit = (id) => (e) => {
+    //   e.preventDefault()
+    //   const formData = new FormData();
+    //   // loop through the state of the new edit form and make an object to send to the back end 
 
-      Object.keys(editForm).forEach(key => {
-        if (editForm[key].constructor === Array) {
-          editForm[key].forEach(item => {
-            formData.append(key, item)
-            console.log(formData);
-          })
-        } else {
-          formData.append(key, editForm[key])
-          console.log(formData);
-          console.log(editForm);
-        }
-      })
+    //   Object.keys(editForm).forEach(key => {
+    //     if (editForm[key].constructor === Array) {
+    //       editForm[key].forEach(item => {
+    //         formData.append(key, item)
+    //         console.log(formData);
+    //       })
+    //     } else {
+    //       formData.append(key, editForm[key])
+    //       console.log(formData);
+    //       console.log(editForm);
+    //     }
+    //   })
 
-      updateAListing(editForm, id).then(res => console.log(res)).then(navigate(0))
-    }
+    //   updateAListing(editForm, id).then(res => console.log(res)).then(navigate(0))
+    // }
 
       const handleDelete = (listing) => {
         console.log('It has been called on ' + listing);
@@ -173,13 +180,13 @@ function DetailsPage() {
             }
 
             <div className='genres'>
-              {movie.genres.map((genre) => (<p className='genre'>{genre.name}</p>))}
+              {movie.genres.map((genre) => (<p className='genre' key={genre.name}>{genre.name}</p>))}
             </div>
             <div className='director'>
               Directed by: {movieCreds.crew.find(o => o.job === 'Director').name}
             </div>
             <div className='genres'>
-              {movieCreds.cast.slice(0, 5).map((star) => (<p className='star'>{star.name}</p>))}
+              {movieCreds.cast.slice(0, 5).map((star) => (<p className='star' key={star.name}>{star.name}</p>))}
             </div>
           </div>
           <div className='details-right'>
@@ -198,20 +205,31 @@ function DetailsPage() {
             </div>
             <div className='offers'>
               <h2>Offers available:</h2>
+
+
               {listings2.length > 0 ? (listings2.map((listing) => (
-                <div className='seller-offer'>
-                  {listing.author.id === user ? (<p>You</p>) : (<p>{listing.author.username}</p>)}
-                  {/* <p>£{listing.price}</p> */}
-                  {listing.author.id === user ? (
+                <>
+                  {/* <IndividualOffer key={listing.id} param={param} navigate={navigate} listing={listing} handleEditChange={handleEditChange} handleEditSubmit={handleEditSubmit} handleDelete={handleDelete} user={user} editFormIsValid={editFormIsValid} /> */}
+                  <IndividualOffer key={listing.id} param={param} navigate={navigate} listing={listing} handleDelete={handleDelete} user={user}  />
+                
 
-                  <form className='edit-form' onSubmit={(e) => handleEditSubmit(listing.id)(e)} encType="multipart/form-data">
-                    <input name='price' placeholder={listing.price} onChange={handleEditChange} type='number' min='1' step='.01'></input>
-                    <button className='del-btn' type='Submit'>Confirm edit</button>
-                  </form>
+                  {/* <div className='seller-offer' key={listing.id}>
+                    {listing.author.id === user ? (<p>You</p>) : (<p>{listing.author.username}</p>)}
+                    {listing.author.id === user ? (
 
-                    ) : (<p>£{listing.price}</p>)}
-                  {listing.author.id === user ? (<button className='del-btn' type='button' onClick={() => handleDelete(listing.id)}>Delete</button>) : (<button className='add-to-cart-btn'>Add to cart</button>)}
-                </div>
+                    <form className='edit-form' onSubmit={(e) => handleEditSubmit(listing.id)(e)} encType="multipart/form-data">
+                      <input name='price' placeholder={listing.price} onChange={handleEditChange} type='number' min='1' step='.01'></input>
+                      <button className='del-btn' type='Submit' disabled={!editFormIsValid}>Confirm edit</button>
+                    </form>
+
+
+                      ) : (<p>£{listing.price}</p>)}
+                    {listing.author.id === user ? (<button className='del-btn' type='button' onClick={() => handleDelete(listing.id)}>Delete</button>) : (<button className='add-to-cart-btn'>Add to cart</button>)}
+                  </div> */}
+
+                </>
+
+
               ))) : (<h2>None currently available</h2>)}
             </div>
             

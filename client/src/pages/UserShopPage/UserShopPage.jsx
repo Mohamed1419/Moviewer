@@ -4,7 +4,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import useUser from "../../hooks/UseUser";
 import { getUserDetails } from '../../utils/listingService';
 import Poster from '../../components/Poster/Poster';
-import ListingPosters from '../../components/ListingPosters/ListingPosters';
+import ListingPosters from '../../components/ListingPosters/ListingPosters'; 
+import { removeAListing, updateAListing } from '../../utils/listingService';
 
 
 
@@ -21,6 +22,33 @@ function UserShopPage() {
 
     const param = useParams()
 
+    const [editForm, setEditForm] = useState({
+    movie_id: param.id.toString(),
+    author: user, 
+    price: 0.00,
+  })
+
+      let handleEditSubmit = (id) => (e) => {
+      e.preventDefault()
+      const formData = new FormData();
+      // loop through the state of the new edit form and make an object to send to the back end 
+
+      Object.keys(editForm).forEach(key => {
+        if (editForm[key].constructor === Array) {
+          editForm[key].forEach(item => {
+            formData.append(key, item)
+            console.log(formData);
+          })
+        } else {
+          formData.append(key, editForm[key])
+          console.log(formData);
+          console.log(editForm);
+        }
+      })
+
+      updateAListing(editForm, id).then(res => console.log(res)).then(navigate(0))
+    }
+
     useEffect(() => {
     // fetching the movie using the params which carries its unique id and fetches from the third party API based upon that
     const getUser = async () => {
@@ -30,6 +58,7 @@ function UserShopPage() {
         (result) => {
           // setIsLoaded(true);
           setUserDetails(result);
+          console.log(user.user);
           if (result) {getMovies(result)}
           // testing to see results of successful fetch
           // console.log(result);
@@ -66,11 +95,25 @@ function UserShopPage() {
   } else {
     return (
       <div>
-        <h1>{userDetails.username}'s store</h1>
+        <h1 className='store-title'>{userDetails.username}'s store</h1>
          <div className='posters-section'>
           {
             userDetails.listings.map((listing, index) => (
-              <ListingPosters listingId={listing.id} movieId={listing.movie_id} coverPic={userListings[index].poster_path} desc={userListings[index].overview} title={userListings[index].title} key={listing.id} price={listing.price} />
+              <ListingPosters listingId={listing.id} 
+              movieId={listing.movie_id} 
+              coverPic={userListings[index].poster_path} 
+              desc={userListings[index].overview} 
+              title={userListings[index].title} 
+              key={listing.id} 
+              price={listing.price} 
+              author={listing.author.id} 
+              user={user.user} 
+              removeAListing={removeAListing}
+              updateAListing={updateAListing}
+              editForm={editForm}
+              setEditForm={setEditForm}
+              handleEditSubmit={handleEditSubmit}
+              />
               ))
             }
         </div>
