@@ -1,9 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import userService from '../../utils/userService';
 import useUser from '../../hooks/UseUser';
-
-
 import "./SignupForm.css"
 
 function SignupForm({ updateMessage }) {
@@ -32,7 +30,7 @@ function SignupForm({ updateMessage }) {
       await userService.signup(state);
       // Let <App> know a user has signed up!
       handleSignupOrLogin();
-      // Successfully signed up - show GamePage
+      // console.log(state.user);
       navigate('/');
     } catch (err) {
       // Invalid user data (probably duplicate email)
@@ -40,6 +38,7 @@ function SignupForm({ updateMessage }) {
     }
   }
 
+  
   const isFormInvalid = () => {
     return !(state.username && state.email && state.password === state.password_confirmation);
   }

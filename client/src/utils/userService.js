@@ -14,7 +14,15 @@ function signup(user) {
       throw new Error("Email already taken!");
     })
 
-    .then(({ token }) => tokenService.setToken(token));
+    .then((data) => {
+      // console.log(data);
+      tokenService.setToken(data.token);
+    });
+
+  // .then(({ token }) => {
+  //   tokenService.setToken(token);
+  //   console.log(token);
+  // });
 }
 
 function getUser() {
@@ -26,7 +34,11 @@ function getUser() {
   // ).then((res) => {
   //   if (res.ok) return res.json();
   // });
-  return tokenService.getUserFromToken();
+  const user = tokenService.getUserFromToken();
+  // console.log("getUser:", user);
+  return user;
+
+  // return tokenService.getUserFromToken();
 }
 
 function logout() {

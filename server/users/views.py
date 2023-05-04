@@ -36,10 +36,15 @@ class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
+            user = serializer.save()
+            token = jwt.encode(
+                {'sub': user.id}, settings.SECRET_KEY, algorithm='HS256')
             serializer.save()
-            return Response({'message': 'Registration successful'})
+            return Response({'message': 'Registration successful', 'token': token})
 
         return Response(serializer.errors, status=422)
+
+
 
 
 class LoginView(APIView):
