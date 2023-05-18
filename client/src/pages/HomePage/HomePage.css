@@ -14,3 +14,17 @@
 .posters {
     margin: 100px 10px;
 }
+
+.load-more-btn {
+    background-color: #07393c;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 10px;
+    transition: 0.2s;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.load-more-btn:hover {
+    transform: scale(1.05, 1.05)
+}

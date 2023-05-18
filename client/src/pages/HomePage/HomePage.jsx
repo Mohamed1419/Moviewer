@@ -47,6 +47,7 @@ function HomePage() {
               ))
             }
         </div>
+        <button className='load-more-btn'>Load more</button>
       </div>
     );
   }
