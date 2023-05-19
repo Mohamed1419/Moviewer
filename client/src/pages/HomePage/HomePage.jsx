@@ -9,11 +9,12 @@ function HomePage() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   let [movies, setMovies] = useState([])
+  let [pageCounter, setPageCounter] = useState(1)
 
   useEffect(() => {
     // fetching the most popular movies, which is provided by the third party api
     const getMovies = async () => {
-        fetch('https://api.themoviedb.org/3/movie/popular?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US&page=1')
+        fetch('https://api.themoviedb.org/3/movie/popular?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US&page=' + pageCounter)
         .then(res => res.json())
         .then(
         (result) => {
@@ -31,6 +32,72 @@ function HomePage() {
   getMovies();
   }, [])
 
+
+
+  // useEffect(() => {
+  //   const getMoreMovies = async () => {
+  //       fetch('https://api.themoviedb.org/3/movie/popular?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US&page=' + pageCounter)
+  //       .then(res => res.json())
+  //       .then(
+  //       (result) => {
+  //         const combinedResuts = [...movies.results, ...result.results];
+  //         movies.results = combinedResuts
+  //         console.log('page counter is now: ' + pageCounter);
+  //         console.log(result.results);
+  //         console.log(movies.results);
+  //         console.log(movies);
+  //         // setMovies(result);
+  //         // testing to see results of successful fetch
+  //         // console.log(result);
+  //       },
+  //       (error) => {
+  //         setIsLoaded(true);
+  //         setError(error);
+  //       }).then(
+
+  //       ).then(
+  //         setIsLoaded(true)
+  //       )}
+
+  //       getMoreMovies()
+  // }, [pageCounter])
+
+  // const loadMore = () => {
+  //   setPageCounter(pageCounter + 1);
+  // };
+
+
+
+  const loadMore = () => {
+    setPageCounter(pageCounter++);
+    // setIsLoaded(false)
+    const getMoreMovies = async () => {
+        fetch('https://api.themoviedb.org/3/movie/popular?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US&page=' + pageCounter)
+        .then(res => res.json())
+        .then(
+        (result) => {
+          const combinedResuts = [...movies.results, ...result.results];
+          movies.results = combinedResuts
+          console.log('page counter is now: ' + pageCounter);
+          console.log(result.results);
+          console.log(movies.results);
+          console.log(movies);
+          // setMovies(result);
+          // testing to see results of successful fetch
+          // console.log(result);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }).then(
+
+        ).then(
+          setIsLoaded(true)
+        )}
+
+        getMoreMovies()
+  }
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
@@ -47,7 +114,7 @@ function HomePage() {
               ))
             }
         </div>
-        <button className='load-more-btn'>Load more</button>
+        <button className='load-more-btn' onClick={() => {loadMore()}}>Load more</button>
       </div>
     );
   }
