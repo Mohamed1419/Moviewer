@@ -130,7 +130,11 @@ function HomePage() {
               ))
             }
         </div>
-        <button className='load-more-btn' onClick={loadMore}>Load more</button>
+        {
+          pageCounter < movies.total_pages && movies.total_results > 20 ? (
+            <button className='load-more-btn' onClick={loadMore}>Load more</button>
+          ) : null
+        }
       </div>
     );
   }
