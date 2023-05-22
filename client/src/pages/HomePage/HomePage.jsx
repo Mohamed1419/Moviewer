@@ -9,17 +9,18 @@ function HomePage() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   let [movies, setMovies] = useState([])
-  let [pageCounter, setPageCounter] = useState(1)
+  let [pageCounter, setPageCounter] = useState(2)
 
   useEffect(() => {
     // fetching the most popular movies, which is provided by the third party api
     const getMovies = async () => {
-        fetch('https://api.themoviedb.org/3/movie/popular?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US&page=' + pageCounter)
+        fetch('https://api.themoviedb.org/3/movie/popular?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US&page=1')
         .then(res => res.json())
         .then(
         (result) => {
           setIsLoaded(true);
           setMovies(result);
+
           // testing to see results of successful fetch
           // console.log(result);
         },
@@ -69,15 +70,30 @@ function HomePage() {
 
 
   const loadMore = () => {
-    setPageCounter(pageCounter++);
+    // setPageCounter(pageCounter++);
+    setPageCounter((prevPageCounter) => prevPageCounter + 1);
     // setIsLoaded(false)
     const getMoreMovies = async () => {
         fetch('https://api.themoviedb.org/3/movie/popular?api_key=4b9b22d0645fd187a357f1db1a5da25e&language=en-US&page=' + pageCounter)
         .then(res => res.json())
         .then(
         (result) => {
-          const combinedResuts = [...movies.results, ...result.results];
-          movies.results = combinedResuts
+          // value for the existing results in movies and the new page of results
+          // const combinedResults = [...movies.results, ...result.results];
+          // // movies.results = combinedResults
+
+          // // make a duplicate of the state so that specifically results can be updated 
+          // const currentMovies = movies
+          // const updatedMovies = { ...currentMovies }
+          // updatedMovies.results = combinedResults
+          // setMovies(updatedMovies)
+
+          setMovies((prevMovies) => ({
+        ...prevMovies,
+        results: [...prevMovies.results, ...result.results]
+      }));
+
+          // console.log(updatedMovies);
           console.log('page counter is now: ' + pageCounter);
           console.log(result.results);
           console.log(movies.results);
@@ -90,7 +106,7 @@ function HomePage() {
           setIsLoaded(true);
           setError(error);
         }).then(
-
+          console.log(movies)
         ).then(
           setIsLoaded(true)
         )}
@@ -114,7 +130,7 @@ function HomePage() {
               ))
             }
         </div>
-        <button className='load-more-btn' onClick={() => {loadMore()}}>Load more</button>
+        <button className='load-more-btn' onClick={loadMore}>Load more</button>
       </div>
     );
   }
