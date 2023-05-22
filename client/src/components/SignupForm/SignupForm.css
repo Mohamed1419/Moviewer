@@ -9,12 +9,14 @@
 
 .form-box {
     height: 25%;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 50px;
 }
 
 .form-horizontal {
     display: flex;
     flex-direction: column;
-    height: 100%;
     justify-content: space-around;
 }
 
