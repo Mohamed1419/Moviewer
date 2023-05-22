@@ -16,6 +16,8 @@ function ResultsPage() {
   let param = useParams()
 
   useEffect(() => {
+    // set resultsPageCounter to original
+    setResultsPageCounter(2)
     // fetching the movie using the params which carries its unique id and fetches from the third party API based upon that
     const getMovie = async () => {
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=4b9b22d0645fd187a357f1db1a5da25e&query=${param.query}`)
@@ -24,8 +26,6 @@ function ResultsPage() {
         (result) => {
           setIsLoaded(true);
           setMovies(result);
-          // testing to see results of successful fetch
-          console.log(result);
         },
         (error) => {
           setIsLoaded(true);
@@ -49,9 +49,6 @@ function ResultsPage() {
             ...prevMovies,
             results: [...prevMovies.results, ...result.results]
           }));
-
-          console.log(resultsPageCounter);
-          console.log(movies);
         },
         (error) => {
           setIsLoaded(true);
