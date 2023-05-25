@@ -48,24 +48,24 @@ function ListingPosters(props) {
   return (
     
         <div className='listing-poster'>
-          {props.userListings.poster_path ? ( <img src={'https://image.tmdb.org/t/p/w500/' + props.userListings.poster_path} alt={props.userListings.title} className='poster-image'/>
-                        ) : (<img src={require('../../images/753134_festival_film_icon.png')} alt={props.userListings.title} className='poster-image' />)}
-            <p>{props.userListings.overview.substring(0, 80)}...<Link to={`/details/${props.listing.movie_id}`}>Read on</Link></p>
+          {props.userListings.poster_path ? ( <Link to={`/details/${props.listing.movie_id}`}><img src={'https://image.tmdb.org/t/p/w500/' + props.userListings.poster_path} alt={props.userListings.title} className='poster-image'/></Link>
+          ) : (<img src={require('../../images/753134_festival_film_icon.png')} alt={props.userListings.title} className='poster-image' />)}
+          <p>{props.userListings.overview.substring(0, 80)}...<Link to={`/details/${props.listing.movie_id}`}>Read on</Link></p>
             
-            {props.listing.author.id === props.user ? (
-              <div>
-                <form onSubmit={(e) => handleEditSubmit(props.listing.id)(e)} encType="multipart/form-data">
-                    <input name='price' placeholder={props.listing.price} onChange={handleEditChange} type='number' min='1' step='.01'></input>
-                    <button className='edit-btn' type='Submit' disabled={!editFormIsValid}>Confirm edit</button>
-                </form>
-                <button className='profile-del-btn' type='button' onClick={() => props.handleDelete(props.listing.id)}>Delete Listing</button>
-              </div>
-            ) : (
-              <div>
-                <p className='price'>{props.listing.price}</p>
-                <button className='buy-now-btn'>Buy now</button>
-              </div>
-            )}
+          {props.listing.author.id === props.user ? (
+            <div>
+              <form onSubmit={(e) => handleEditSubmit(props.listing.id)(e)} encType="multipart/form-data">
+                  <input name='price' placeholder={props.listing.price} onChange={handleEditChange} type='number' min='1' step='.01'></input>
+                  <button className='edit-btn' type='Submit' disabled={!editFormIsValid}>Confirm edit</button>
+              </form>
+              <button className='profile-del-btn' type='button' onClick={() => props.handleDelete(props.listing.id)}>Delete Listing</button>
+            </div>
+          ) : (
+            <div>
+              <p className='price'>{props.listing.price}</p>
+              <button className='buy-now-btn'>Buy now</button>
+            </div>
+          )}
         </div>
   )
 }
