@@ -49,7 +49,7 @@ function ListingPosters(props) {
     
         <div className='listing-poster'>
           {props.userListings.poster_path ? ( <Link to={`/details/${props.listing.movie_id}`}><img src={'https://image.tmdb.org/t/p/w500/' + props.userListings.poster_path} alt={props.userListings.title} className='poster-image'/></Link>
-          ) : (<img src={require('../../images/753134_festival_film_icon.png')} alt={props.userListings.title} className='poster-image' />)}
+          ) : (<Link to={`/details/${props.listing.movie_id}`}><img src={require('../../images/753134_festival_film_icon.png')} alt={props.userListings.title} className='poster-image' /></Link>)}
           <p>{props.userListings.overview.substring(0, 80)}...<Link to={`/details/${props.listing.movie_id}`}>Read on</Link></p>
             
           {props.listing.author.id === props.user ? (

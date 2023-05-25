@@ -184,7 +184,7 @@ function DetailsPage() {
             </div>
 
             {
-              movie.poster_path ? (<img src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path} className='movie-poster' alt={movie.title} />) : (<img src={require('../../images/753134_festival_film_icon.png')} alt={movie.title}/>)
+              movie.poster_path ? (<img src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path} className='movie-poster' alt={movie.title} />) : (<img src={require('../../images/753134_festival_film_icon.png')} className='movie-poster' alt={movie.title}/>)
             }
 
             <div className='genres'>
