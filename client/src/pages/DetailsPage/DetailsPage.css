@@ -10,12 +10,18 @@
 .details-page div {
     margin: 30px auto;
 }
+
+
 .details-left {
 
 }
 
 .details-right {
 
+}
+
+.movie-poster {
+    max-width: 500px;
 }
 
 .genres {
@@ -50,8 +56,21 @@
 .title-price {
     display: flex;
     justify-content: space-evenly;
-    width: 500px;
-    
+    max-width: 500px;
+}
+
+.title-price-phone {
+    display: none;
+    justify-content: space-evenly;
+    max-width: 500px;
+}
+
+.title-price-phone h2 {
+    color: white;
+    background-color: #2c666e;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .title-price h2 {
@@ -161,11 +180,38 @@
 }
 
 .signup-message {
-        border: 1px solid black;
-            border-radius: 5px;
-            padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
 }
 /* .edit-form {
     display: flex;
     flex-direction: row;
 } */
+
+@media only screen and (max-width: 999px) {
+    .details-page {
+        flex-direction: column;
+    }
+
+    .details-page div {
+        margin: 10px auto;
+    }
+
+    .title-price {
+        display: none;
+    }
+
+    .title-price-phone {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 514px) {
+    .movie-poster {
+        max-width: 90%;
+    }
+    .details-right, .details-left {
+        max-width: 90%;
+    }
+}

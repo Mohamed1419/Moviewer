@@ -176,8 +176,15 @@ function DetailsPage() {
         <div className='details-page' style={{backgroundImage: `linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`}}>
 
           <div className='details-left'>
+            <div className='title-price-phone'>
+              <div><h2>{movie.title}</h2></div>
+              <div>
+                {listings2.length > 0 ? (<h2>£{  Math.min(...listings2.map(item => item.price ))  }</h2>) : (<h2>None available</h2>)}
+              </div>
+            </div>
+
             {
-              movie.poster_path ? (<img src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path} alt={movie.title} />) : (<img src={require('../../images/753134_festival_film_icon.png')} alt={movie.title}/>)
+              movie.poster_path ? (<img src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path} className='movie-poster' alt={movie.title} />) : (<img src={require('../../images/753134_festival_film_icon.png')} alt={movie.title}/>)
             }
 
             <div className='genres'>
