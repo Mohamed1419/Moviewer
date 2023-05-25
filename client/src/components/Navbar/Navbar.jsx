@@ -50,7 +50,14 @@ const NavBar = () => {
 
   let nav = user ? (
     // IF SIGNED IN
-    <div className="navBar-logged-in">
+    <div>
+      <Link
+        to={`/user/${user}`}
+        className="navBar-signup"
+      >
+        My Store
+      </Link>
+
       <NavLink
         to=""
         className="navBar-logout"
@@ -59,15 +66,6 @@ const NavBar = () => {
       >
         Log out
       </NavLink>
-
-      <Link
-        to={`/user/${user}`}
-        className="navBar-signup"
-
-      >
-        My Store
-      </Link>
-
     </div>
   ) : (
     //IF SIGNED OUT
@@ -95,35 +93,15 @@ const NavBar = () => {
   return (
     <div className="nav">
       <div className="navBar">
-
-        <div className="navBar-left">
-          {nav}
-        </div>
-
         <Link to="/" style={{ color: "#07393C" }}>
           <h1 className="moviewer">Moviewer</h1>
+          <h1 className="moviewer-shortened">MV</h1>
         </Link>
 
-          <Link to='/cart'>
-            <NavLink
-        to="/"
-        className="cart"
-      >Cart</NavLink>
-          </Link>
+        <div className="navBar-right">
+          {nav}
+        </div>
       </div>
-      
-      {/* <div className="search">
-        <input type='text' value={value} className="searchbar" placeholder="Search for a movie title" onSubmit={() => onSearch(value)}  onChange={onChange}></input>
-        <Link to={`/results/${value}`}>  <div className="search-icon"><SearchOutlinedIcon onClick={() => onSearch(value) } /></div>  </Link>
-      </div> */}
-      
-      {/* <form className="searchbar-label">
-        <label>
-          <input type='text' value={value} placeholder="Search for a movie title" onChange={onChange} className='searchbar'></input>
-        </label>
-        <Link to={`/results/${value}`}><input type="submit" value="Find Movie" className="search-btn" /></Link> 
-      </form> */}
-
 
       <form className='search-bar-new'>
         <input type='text' value={value} placeholder="Search for a movie title" onChange={onChange}></input>
