@@ -4,8 +4,6 @@
 
 }
 
-
-
 .poster {
     max-width: 200px;
     max-height: 400px;
@@ -23,14 +21,20 @@
     transform: scale(1.05, 1.05)
 }
 
-/* .poster-image:hover {
-    max-width: 205px;
-
-} */
-
 .poster-image {
-    width: 200px;
-    height: 305px;
+    max-width: 200px;
+    max-height: 305px;
     transition: 0.3s;
     border-radius: 10px;
+}
+
+@media only screen and (max-width: 483px) {
+    .poster {
+        max-width: 150px;
+    }
+
+    .poster-image {
+        max-width: 150px;
+        max-height: 225px;
+    }
 }
