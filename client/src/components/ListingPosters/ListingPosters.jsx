@@ -63,7 +63,7 @@ function ListingPosters(props) {
           ) : (
             <div>
               <p className='price'>{props.listing.price}</p>
-              <button className='buy-now-btn'>Buy now</button>
+              <button type='button' onClick={() => props.initiateCheckout(props.userListings.title, props.listing.id)} className='buy-now-btn'>Buy now</button>
             </div>
           )}
         </div>

@@ -40,10 +40,9 @@ class CreateCheckoutSessionView(APIView):
             success_url=settings.SITE_URL + '/?success=true',
             cancel_url=settings.SITE_URL + '/?cancelled=true',
         )
-
-        # return redirect(session.url)
+        listing.sold = True
+        listing.save()
         # return redirect(session.url, code=303)
-        # return Response({'session_id': session.id})
         return Response({'session_url': session.url})
 
 

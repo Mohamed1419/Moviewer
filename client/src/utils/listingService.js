@@ -108,8 +108,6 @@ export const initiateCheckout = async (title, listingId) => {
     if (response.ok) {
       console.log("response was okay");
       const { session_url } = await response.json();
-      // window.location.href = `https://checkout.stripe.com/checkout/${session_id}`;
-      // window.location.href = "https://checkout.stripe.com/pay/" + session_id;
       window.location.href = session_url;
     } else {
       console.log("There was an error while checking out");

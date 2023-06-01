@@ -2,7 +2,7 @@ import './UserShopPage.css'
 import { React, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useUser from "../../hooks/UseUser";
-import { getUserDetails } from '../../utils/listingService';
+import { getUserDetails, initiateCheckout } from '../../utils/listingService';
 import Poster from '../../components/Poster/Poster';
 import ListingPosters from '../../components/ListingPosters/ListingPosters'; 
 import { removeAListing, updateAListing } from '../../utils/listingService';
@@ -116,6 +116,7 @@ function UserShopPage() {
                 userListings={userListings[index]} 
                 user={user.user} 
                 handleDelete={handleDelete}
+                initiateCheckout={initiateCheckout}
               />
               ))
             }

@@ -11,7 +11,7 @@ class UsersSerializer(serializers.ModelSerializer):
 class ListingSerializer(serializers.ModelSerializer):
     class Meta:
         model=Listing
-        fields=('id', 'movie_id', 'author', 'price',)
+        fields=('id', 'movie_id', 'author', 'price', 'sold')
 
     def to_representation(self, instance):
         response=super().to_representation(instance)

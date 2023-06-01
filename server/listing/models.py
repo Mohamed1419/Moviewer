@@ -7,6 +7,7 @@ class Listing(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='listings')
+    sold = models.BooleanField(default=False)
     
     def __str__(self):
         return f'{self.movie_id} by {self.author.username}'
