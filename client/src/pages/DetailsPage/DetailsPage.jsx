@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import './DetailsPage.css'
 import { useParams } from 'react-router-dom';
-import {createAListing} from '../../utils/listingService'
+import {createAListing, initiateCheckout} from '../../utils/listingService'
 import userService from '../../utils/userService'
 import { useNavigate } from 'react-router-dom'
 import { removeAListing, updateAListing } from '../../utils/listingService';
@@ -82,27 +82,6 @@ function DetailsPage() {
       }).then(navigate(0))
     }
 
-    // let handleEditSubmit = (id) => (e) => {
-    //   e.preventDefault()
-    //   const formData = new FormData();
-    //   // loop through the state of the new edit form and make an object to send to the back end 
-
-    //   Object.keys(editForm).forEach(key => {
-    //     if (editForm[key].constructor === Array) {
-    //       editForm[key].forEach(item => {
-    //         formData.append(key, item)
-    //         console.log(formData);
-    //       })
-    //     } else {
-    //       formData.append(key, editForm[key])
-    //       console.log(formData);
-    //       console.log(editForm);
-    //     }
-    //   })
-
-    //   updateAListing(editForm, id).then(res => console.log(res)).then(navigate(0))
-    // }
-
       const handleDelete = (listing) => {
         console.log('It has been called on ' + listing);
         removeAListing(listing).then(navigate(0))
@@ -163,7 +142,7 @@ function DetailsPage() {
 }, [])
 
   useEffect(() => {
-    setListings2(listings.filter(el => el.movie_id === movie.id))
+    setListings2(listings.filter(el => el.movie_id === movie.id));
   }, [listings]);
 
   if (error) {
@@ -217,24 +196,7 @@ function DetailsPage() {
 
               {listings2.length > 0 ? (listings2.map((listing) => (
                 <>
-                  {/* <IndividualOffer key={listing.id} param={param} navigate={navigate} listing={listing} handleEditChange={handleEditChange} handleEditSubmit={handleEditSubmit} handleDelete={handleDelete} user={user} editFormIsValid={editFormIsValid} /> */}
-                  <IndividualOffer key={listing.id} param={param} navigate={navigate} listing={listing} handleDelete={handleDelete} user={user}  />
-                
-
-                  {/* <div className='seller-offer' key={listing.id}>
-                    {listing.author.id === user ? (<p>You</p>) : (<p>{listing.author.username}</p>)}
-                    {listing.author.id === user ? (
-
-                    <form className='edit-form' onSubmit={(e) => handleEditSubmit(listing.id)(e)} encType="multipart/form-data">
-                      <input name='price' placeholder={listing.price} onChange={handleEditChange} type='number' min='1' step='.01'></input>
-                      <button className='del-btn' type='Submit' disabled={!editFormIsValid}>Confirm edit</button>
-                    </form>
-
-
-                      ) : (<p>£{listing.price}</p>)}
-                    {listing.author.id === user ? (<button className='del-btn' type='button' onClick={() => handleDelete(listing.id)}>Delete</button>) : (<button className='add-to-cart-btn'>Add to cart</button>)}
-                  </div> */}
-
+                  <IndividualOffer key={listing.id} param={param} navigate={navigate} listing={listing} handleDelete={handleDelete} title={movie.title} initiateCheckout={initiateCheckout} user={user}  />
                 </>
 
 

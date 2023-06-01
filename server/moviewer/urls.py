@@ -25,4 +25,5 @@ urlpatterns = [
     # path('users/details/<int:pk>/', UserDetail.as_view(), name='user'),
     # path('users/update/<int:pk>/', UserUpdate.as_view(), name='update'),
     path('api-auth/', include("rest_framework.urls")),
+    path('api/stripe/', include('payments.urls')),
 ]

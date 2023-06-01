@@ -42,17 +42,18 @@ INSTALLED_APPS = [
     'rest_framework',
     'users',
     'listing',
+    'payments',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 
@@ -121,6 +122,13 @@ REST_FRAMEWORK = {
     #     'rest_framework.parsers.MultiPartParser',
     # ],
 }
+
+# STRIPE_SECRET_KEY = 'sk_test_51NBTzxIRA1BEnbDjWYwdDPBGh6VPzBzRgQmN1K325sNOsKVqUe5Kuo90ndy6oYzjAk55qoG4XyPnMsX49mTzzr8800Xz7NRGqw'
+# STRIPE_SECRET_KEY = 'pk_test_51NBTzxIRA1BEnbDjoBzj9232HTgxhzF3dGFeHK2UzauGXyN2ej8V4elHL5QHZeZQYJn5ySyINBiE0dXptB5TaGcz000hxC4K9w'
+STRIPE_SECRET_KEY = 'sk_test_51NBTzxIRA1BEnbDjWYwdDPBGh6VPzBzRgQmN1K325sNOsKVqUe5Kuo90ndy6oYzjAk55qoG4XyPnMsX49mTzzr8800Xz7NRGqw'
+
+
+SITE_URL = 'http://localhost:3000'
 
 
 

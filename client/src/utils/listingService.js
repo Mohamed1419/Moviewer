@@ -89,3 +89,30 @@ export const updateAListing = async (listing, listingId) => {
     console.log(error);
   }
 };
+
+export const initiateCheckout = async (title, listingId) => {
+  try {
+    const response = await fetch(
+      BASE_URL + "api/stripe/create_checkout_session/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          listing_id: listingId,
+          title: title,
+        }),
+      }
+    );
+    if (response.ok) {
+      console.log("response was okay");
+      const { session_id } = await response.json();
+      window.location.href = `https://checkout.stripe.com/checkout/${session_id}`;
+    } else {
+      console.log("There was an error while checking out");
+    }
+  } catch (error) {
+    console.log("Network error");
+  }
+};

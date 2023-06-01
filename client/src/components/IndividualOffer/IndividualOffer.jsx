@@ -51,7 +51,8 @@ function IndividualOffer(props) {
         </form>
 
             ) : (<p className='price'>£{props.listing.price}</p>)}
-        {props.listing.author.id === props.user ? (<button className='del-btn' type='button' onClick={() => props.handleDelete(props.listing.id)}>Delete</button>) : (<button className='add-to-cart-btn'>Add to cart</button>)}
+        {props.listing.author.id === props.user ? (<button className='del-btn' type='button' onClick={() => props.handleDelete(props.listing.id)}>Delete</button>) 
+        : (<button type='button' onClick={() => props.initiateCheckout(props.title, props.listing.id)} className='add-to-cart-btn'>Buy now</button>)}
     </div>
   )
 }
