@@ -35,12 +35,16 @@ class CreateCheckoutSessionView(APIView):
                 },
             ],
             mode='payment',
-            success_url=settings.SITE_URL + '/?success=true&session_id={CHECKOUT_SESSION_ID}',
+            # success_url=settings.SITE_URL + '/?success=true&session_id={CHECKOUT_SESSION_ID}',
+            # cancel_url=settings.SITE_URL + '/?cancelled=true',
+            success_url=settings.SITE_URL + '/?success=true',
             cancel_url=settings.SITE_URL + '/?cancelled=true',
         )
 
         # return redirect(session.url)
-        return Response({'session_id': session.id})
+        # return redirect(session.url, code=303)
+        # return Response({'session_id': session.id})
+        return Response({'session_url': session.url})
 
 
 
